@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}MultiFIST - task list{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Tasks</li>
+{% endblock %}
+
+{% block content %}
+    <a class="btn btn-primary my-2" role="button" href="{% url "task_create" %}">
+        New Task
+    </a>
+    {% if task_list %}
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Task Name</th>
+                <th scope="col">Next Run</th>
+                <th scope="col">Interval</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            {% for task in task_list %}
+                <tr>
+                    {% if task.job.next_run_time == Null %}
+                        <td>
+                            <a href="{{ task.get_resume_url }}">
+                                <img src="{% static 'img/play.svg' %}">
+                            </a>
+                        </td>
+                    {% else %}
+                        <td>
+                            <a href="{{ task.get_pause_url }}">
+                                <img src="{% static 'img/pause.svg' %}">
+                            </a>
+                        </td>
+                    {% endif %}
+                    <td><a href="{{ task.get_absolute_url }}">{{ task.name }}</a></td>
+                    <td>{{ task.job.next_run_time }}</td>
+                    <td>{{ task.get_readable_interval }}</td>
+                    <td>
+                        <a class="btn btn-secondary btn-sm" role="button"
+                           href="{{ task.get_edit_url }}">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger btn-sm" role="button"
+                           href="{{ task.get_delete_url }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% include "includes/pagination.html" %}
+    {% else %}
+        <p>No tasks in database</p>
+    {% endif %}
+
+{% endblock %}

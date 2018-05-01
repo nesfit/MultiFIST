@@ -1,0 +1,34 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<form method="get" action="">
+    <div class="form-group">
+        <small>{{ filter.form.web_page__url.label_tag }}</small>
+        {% render_field filter.form.web_page__url class="form-control rounded-0" placeholder="URL address" %}
+    </div>
+    <div class="row no-gutters">
+        <div class="col-8 form-group">
+            <small>{{ filter.form.scraped_data.label_tag }}</small>
+            {% render_field filter.form.scraped_data class="form-control rounded-0 border-right-0" placeholder="Data" %}
+        </div>
+        <div class="col-2">
+            <small>{{ filter.form.accessed_time__gte.label_tag }}</small>
+            <div class="input-group date">
+                {% render_field filter.form.accessed_time__gte class="form-control rounded-0" data-toggle="datepicker" placeholder="MM/DD/YYYY" %}
+            </div>
+        </div>
+        <div class="col-2">
+            <small>{{ filter.form.accessed_time__lte.label_tag }}</small>
+            {% render_field filter.form.accessed_time__lte class="form-control rounded-0 border-left-0" data-toggle="datepicker" placeholder="MM/DD/YYYY" %}
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class=" btn btn-primary">Search</button>
+    </div>
+</form>
+
+<link rel="stylesheet" href="{% static 'css/datepicker.min.css' %}">
+<script type="text/javascript" src="{% static 'js/datepicker.min.js' %}"></script>
+<script type="text/javascript">
+    $('[data-toggle="datepicker"]').datepicker();
+</script>

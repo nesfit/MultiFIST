@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}MultiFIST - rule list{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Rules</li>
+{% endblock %}
+{% block content %}
+    <a class="btn btn-primary my-2" role="button" href="{% url "rule_create" %}">Add Rule</a>
+    {% if rule_list %}
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Value</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            {% for rule in rule_list %}
+                <tr>
+                    <td>{{ rule.name }}</td>
+                    <td>{{ rule.value }}</td>
+                    <td><a class="btn btn-secondary btn-sm" role="button"
+                           href="{{ rule.get_absolute_url }}">Edit</a></td>
+                    <td><a class="btn btn-secondary btn-sm" role="button"
+                           href="{% url "rule_delete" rule.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% include "includes/pagination.html" %}
+    {% else %}
+        <p>No rule was created</p>
+    {% endif %}
+{% endblock %}

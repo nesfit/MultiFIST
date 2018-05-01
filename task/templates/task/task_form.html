@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+    <link href="{% static 'css/multi-select.dist.css' %}" media="screen" rel="stylesheet"
+          type="text/css">
+    <script src="{% static 'js/addInput.js' %}"></script>
+{% endblock %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'tasks' %}">Tasks</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{{ form_name }}</li>
+{% endblock %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        {% include 'includes/form.html' %}
+        {% if formset %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Web Pages</h5>
+
+                    {% for error in formset.non_form_errors %}
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                    <div id="dynamicInput">
+                        {{ formset.management_form }}
+                        {% for url_form in formset %}
+                            {% include 'includes/form.html' with form=url_form %}
+                        {% endfor %}
+                    </div>
+                    <input class="btn btn-success my-4" type="button" value="Add"
+                           onClick="addInput('dynamicInput');">
+                </div>
+            </div>
+        {% endif %}
+
+        <button type="submit" class=" btn btn-primary my-4">Submit</button>
+    </form>
+
+    <script src="{% static 'js/jquery.multi-select.js' %}" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $('#id_rules').multiSelect();
+    </script>
+    <script type="text/javascript">
+        renderInput("dynamicInput");
+    </script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item" aria-current="page">
+        <a href="{% url 'tasks' %}">Tasks</a>
+    </li>
+    <li class="breadcrumb-item" aria-current="page">
+        <a href="{% url 'task' pk=webarchive.task.id %}">{{ webarchive.task.name }}</a>
+    </li>
+    <li class="breadcrumb-item active"
+        aria-current="page">{{ webarchive.get_web_archive_filename }}</li>
+{% endblock %}
+
+{% block content %}
+
+        <div class="card">
+            <div class="card-body">
+                <h5>Web Page</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ webarchive.web_page.url }}</li>
+                </ul>
+            </div>
+        </div>
+        <br>
+    {% if webarchive.scraped_data %}
+        <div class="card">
+            <div class="card-body">
+                <h5>Scraped Data</h5>
+                <table class="table">
+                    {% for type, value_list in webarchive.get_scraped_data.items %}
+                        {% for value in value_list %}
+                            <tr>
+                                {% if forloop.first %}
+                                    <th rowspan="{{ value_list|length }}">{{ type }}</th>
+                                {% endif %}
+                                <td>{{ value }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

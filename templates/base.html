@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block body %}
+
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb my-4">
+                {% block breadcrumb %} {% endblock %}
+            </ol>
+        </nav>
+        {% block content %}{% endblock %}
+    </div>
+
+{% endblock %}

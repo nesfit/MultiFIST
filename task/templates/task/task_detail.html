@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}MultiFIST - {{ task.name }}{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item" aria-current="page">
+        <a href="{% url 'tasks' %}">Tasks</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{{ task.name }}</li>
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Web Pages</h5>
+            <ul class="list-group list-group-flush">
+                {% for webpage in task.web_pages.all %}
+                    <li class="list-group-item">{{ webpage.url }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Rules</h5>
+            <ul class="list-group list-group-flush">
+                {% for rule in task.rules.all %}
+                    <li class="list-group-item">{{ rule.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Search</h5>
+            {% include 'includes/search_form.html' %}
+        </div>
+    </div>
+    <br>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Hash (SHA256)</th>
+            <th scope="col">Created</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for web_archive in filter.qs %}
+            <tr>
+                <td>
+                    <a href="{{ web_archive.get_absolute_url }}">
+                        {{ web_archive.get_web_archive_filename }}
+                    </a>
+                </td>
+                <td>{{ web_archive.archive_hash }}</td>
+                <td>{{ web_archive.accessed_time }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br><br><br><br><br><br>
+{% endblock %}
