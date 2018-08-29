@@ -26,7 +26,7 @@ def create_task_job(task):
 def __task_job(task):
     tasks = list()
     for pharty_arg in __pharty_argument_list(task):
-        tasks.append(Popen(["pharty2", pharty_arg], stdout=PIPE))
+        tasks.append(Popen(["/Lemmiwinks/pharty2/pharty2.py", pharty_arg], stdout=PIPE))
 
     for job in tasks:
         job.wait()
