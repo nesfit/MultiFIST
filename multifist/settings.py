@@ -82,14 +82,12 @@ WSGI_APPLICATION = 'multifist.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': 'multifistdb'
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'multifistdb',
-        'USER': 'multifist',
+        'NAME': 'pikachu',
+        'USER': 'pikachu',
         'PASSWORD': 'pikachu',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
