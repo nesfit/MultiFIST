@@ -35,6 +35,7 @@ def __task_job(task):
 
 def __create_web_archive(job, task):
     job_args = ast.literal_eval(job.args[1])
+    print(job.stdout.read().decode('utf-8'))
     job_return = ast.literal_eval(job.stdout.read().decode('utf-8'))
     web_archive = models.WebArchive()
     web_archive.task = task
