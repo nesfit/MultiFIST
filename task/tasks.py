@@ -35,14 +35,8 @@ def __task_job(task):
 
 
 def __create_web_archive(job, task):
-    try:
-        job_args = ast.literal_eval(job.args[1])
-        job_return = ast.literal_eval(job.stdout.read().decode('utf-8'))
-    except Exception as e:
-        logging.error(e)
-        logging.error(job.stdout.read().decode('utf-8'))
-        job_return = ''
-
+    job_args = ast.literal_eval(job.args[1])
+    job_return = ast.literal_eval(job.stdout.read().decode('utf-8'))
     web_archive = models.WebArchive()
     web_archive.task = task
     web_archive.web_page = models.WebPage.objects.get(url=list(job_args['url'].keys())[0])
