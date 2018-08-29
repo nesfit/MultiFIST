@@ -3,6 +3,7 @@ import uuid
 import pathlib
 import hashlib
 import ast
+import logging
 
 from . import models
 from multifist import settings
@@ -34,9 +35,14 @@ def __task_job(task):
 
 
 def __create_web_archive(job, task):
-    job_args = ast.literal_eval(job.args[1])
-    print(job.stdout.read().decode('utf-8'))
-    job_return = ast.literal_eval(job.stdout.read().decode('utf-8'))
+    try:
+        job_args = ast.literal_eval(job.args[1])
+        job_return = ast.literal_eval(job.stdout.read().decode('utf-8'))
+    except Exception as e:
+        logging.error(e)
+        logging.error(job.stdout.read().decode('utf-8'))
+        job_return = ''
+
     web_archive = models.WebArchive()
     web_archive.task = task
     web_archive.web_page = models.WebPage.objects.get(url=list(job_args['url'].keys())[0])
