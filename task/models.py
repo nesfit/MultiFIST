@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib.postgres.fields import JSONField
 import ast
 import os
+import re
 
 # third party imports
 import django_apscheduler.models as aps_models
@@ -100,3 +101,8 @@ class WebArchive(models.Model):
 
     def get_web_archive_filename(self):
         return os.path.basename(self.location)
+
+    def get_web_archive_location(self):
+        match = re.search("/media.*", str(self.location))
+        print(match.group(0))
+        return match.group(0) if match else ""

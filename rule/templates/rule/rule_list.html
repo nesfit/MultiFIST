@@ -23,7 +23,7 @@
                     <td>{{ rule.value }}</td>
                     <td><a class="btn btn-secondary btn-sm" role="button"
                            href="{{ rule.get_absolute_url }}">Edit</a></td>
-                    <td><a class="btn btn-secondary btn-sm" role="button"
+                    <td><a class="btn btn-danger btn-sm" role="button"
                            href="{% url "rule_delete" rule.id %}">Delete</a></td>
                 </tr>
             {% endfor %}

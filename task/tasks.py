@@ -1,5 +1,3 @@
-from django.core.files.storage import FileSystemStorage
-
 from subprocess import Popen, PIPE
 import uuid
 import pathlib

@@ -1,0 +1,7 @@
+django-apscheduler
+django-filter
+humanfriendly
+Django==2.1
+django-widget-tweaks
+django-multiselectfield
+psycopg2
